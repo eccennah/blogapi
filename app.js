@@ -3,7 +3,7 @@ const { userRouter } = require('./routes/userRoutes');
 const articleRoute = require('./routes/articleRoutes');
 const { connect } = require('./db/connection');
 const auth = require('./middlewares/auth')
-const logger = require('./logger');
+const logger = require('./config/log');
 const winston = require('winston');
 
 require('dotenv').config();
@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5050;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
 
 
 connect();
@@ -244,6 +245,7 @@ app.use((err, req, res, next) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log("MONGO URI:", process.env.MONGODB_URI);
 });
 
 module.exports = app;
