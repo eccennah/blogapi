@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 
 const articleRouter = express.Router()
 
-articleRouter.use(auth.authenticateUser);
+articleRouter.use(auth.verifyToken);
 
 articleRouter.post('/create', controller.createArticle);
 articleRouter.get('/', controller.getAllArticles);
