@@ -3,7 +3,7 @@ const { userRouter } = require('./routes/userRoutes');
 const articleRoute = require('./routes/articleRoutes');
 const { connect } = require('./db/connection');
 const auth = require('./middlewares/auth')
-const logger = require('./logger');
+const logger = require('./config/log');
 const winston = require('winston');
 
 require('dotenv').config();
