@@ -26,7 +26,7 @@ const create = async(req,res) => {
         res.status(302).redirect("/login");
     } catch(error){
         console.log(error);
-        res.status
+        
     }    
 };
 
@@ -37,7 +37,7 @@ const login = async (req, res) => {
     const user = await userModel.findOne({
       email: email,
     });
-    // console.log(user)
+
 
     if (!user) {
       return  res.status(404).redirect("/signup");

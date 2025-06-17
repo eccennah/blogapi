@@ -45,7 +45,7 @@ userSchema.methods.isValidPassword = async function (password) {
 }
 
 
-const userModel=model('users', userSchema)
+const userModel=model('user', userSchema)
 
 model.exports={
     userModel

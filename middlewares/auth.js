@@ -2,41 +2,28 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/users');
 require('dotenv').config();
 
-const authenticateUser = async(req,res,next) =>{
- 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const user = require("../models/users");
 
-const authenticateUser = async (req, res) => {
-  const { email, password } = req.body;
 
-  try {
-    // 1. Check if user exists
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
+verifyToken = (req,res,next) =>{
+    let token = req.headers["x-access-token"]
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+        token = authHeader.split (" ")[1];
+    }
+    if (!token) {
+        return res.status(403).send({message:"Not authorized!"});
+    }
 
-    // 2. Compare passwords
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
-
-    // 3. Create JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-    // 4. Send response
-    res.status(200).json({
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name
-      },
-      token
-    });
-
-  } catch (error) {
-    res.status(500).json({ message: 'Server error' });
-  }
+    jwt.verify(token, process.env.SECRET_TOKEN, (err,decoded) =>{
+        if(err) {
+              return res.status(401).send({ message: "Unauthorized!" });
+    }
+    req.userId = decoded.id;
+    next();
+  });
 };
 
 
-
-}
-module.exports = {authenticateUser};
+module.exports = {verifyToken};

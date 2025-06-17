@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const connect = () =>{
-    mongoose.connect(process.env.MONGODB_url || 'mongodb://localhost:27017/blog')
+    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/blog')
     mongoose.connection.on('successfulconnect', () =>{
         console.log('connection successful');
     })
