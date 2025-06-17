@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 5050;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
 
 
 connect();
