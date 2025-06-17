@@ -154,7 +154,7 @@ app.get("/allarticles", async (req, res) => {
   }
 });
 
-app.get("/dashboard", auth.authenticateUser, async (req, res) => {
+app.get("/dashboard", auth.verifyToken, async (req, res) => {
   try {
     const user_id = req.user_id;
     const user = req.user;
